@@ -61,7 +61,8 @@ class Input extends Component {
         <br/>
         <button
           className="enter-text"
-          /* (Input Refs - 2) Create listener and execute inside anonymous function */
+          /* (Input Refs - 2) Create listener and execute listener method
+                 inside anonymous arrow function */
           onClick={ ()=>{ this._handleEnterClick() } }
         >Enter</button>
       </div>
