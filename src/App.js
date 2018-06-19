@@ -11,12 +11,11 @@ class App extends Component {
     }
   }
 
-  _updateUserMessage(data){
+  /* (Input Refs - 4a) create a method to change state of parent   */
+
+  _updateStateFromChild(stateObj){
     console.log('from <App/>:')
-    console.log(data, this.state)
-    this.setState({
-      userMessage: data
-    })
+    this.setState(stateObj)
   }
 
   render() {
@@ -24,13 +23,22 @@ class App extends Component {
       <div className="App">
         <Header/>
         <Input
-          _updateUserMessageCb={this._updateUserMessage.bind(this)}
+        /* (Input Refs - 4b)
+            pass _updatemethod as props-function to child <Input/>
+            ... don't forget to bind!
+        */
+          updateAppState={this._updateStateFromChild.bind(this)}
         />
         <hr/>
         <h4>Output</h4>
         <p className="user-message">
+          /* (Input Refs - 5)
+              parent state is updated from child component,
+              and new message appears
+          */
            {this.state.userMessage}
         </p>
+
       </div>
     );
   }

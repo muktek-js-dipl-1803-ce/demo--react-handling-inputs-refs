@@ -21,22 +21,38 @@ class Input extends Component {
 
   }
 
-  _handleEnterClick(){
-    // console.log('Captured Message:')
-    // console.log(this.refs.msgInput.value)
-    this.props._updateUserMessageCb(this.refs.msgInput.value)
+  /* (Input Refs - 3) Create listener Method   */
+  _handleEnterClick(appState){
+
+    /* (Input Refs - 4c)
+        send state-object to parent component (see 4a, 4b in App.js)
+        by executing the _updateStateFromChild() callback function
+        -- (note: lives on this.props.updateAppState)
+    */
+    this.props.updateAppState({
+      userMessage: this.refs.msgInput.value
+    })
+
     this.refs.msgInput.value = ''
     this.setState({
       currentValInInput: ''
     })
   }
 
+  _handleReturnKey(evtObj){
+    if(evtObj.keyCode === 13){
+      this._handleEnterClick()
+    }
+  }
+
   render() {
     return (
       <div className="input-group">
         <input type="text"
+        /* (Input Refs - 1) Create ref on <input/> el */
           ref="msgInput"
           onChange={ ()=>{ this._handleInputType() } }
+          onKeyDown={ (evt)=>{this._handleReturnKey(evt) } }
         />
         <span className="char-count">
           {this.state.currentValInInput.length}
@@ -45,6 +61,7 @@ class Input extends Component {
         <br/>
         <button
           className="enter-text"
+          /* (Input Refs - 2) Create listener and execute inside anonymous function */
           onClick={ ()=>{ this._handleEnterClick() } }
         >Enter</button>
       </div>
